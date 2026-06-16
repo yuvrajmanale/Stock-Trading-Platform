@@ -123,7 +123,7 @@ const Holdings = () => {
   const [allHoldings, setAllHoldings] = useState([]);
 
   useEffect(() => {
-    axios.get("https://stock-trading-platform-1-x4tx.onrender.com/allHoldings").then((res) => {
+    axios.get("https://stock-trading-platform-1-x4tx.onrender.com/api/allHoldings").then((res) => {
       setAllHoldings(res.data);
     });
   }, []);
