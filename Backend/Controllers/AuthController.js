@@ -111,122 +111,170 @@
 //   }
 // };
 
-const User = require("../models/UserModel");
-const { createSecretToken } = require("../util/SecretToken");
-const bcrypt = require("bcryptjs");
+// const User = require("../models/UserModel");
+// const { createSecretToken } = require("../util/SecretToken");
+// const bcrypt = require("bcryptjs");
 
-// ================= SIGNUP =================
-const Signup = async (req, res) => {
-  try {
-    const { email, password, username } = req.body;
+// // ================= SIGNUP =================
+// const Signup = async (req, res) => {
+//   try {
+//     const { email, password, username } = req.body;
 
-    // ✅ Validate input
-    if (!email || !password || !username) {
-      return res.status(400).json({
-        success: false,
-        message: "All fields are required",
-      });
-    }
+//     // ✅ Validate input
+//     if (!email || !password || !username) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "All fields are required",
+//       });
+//     }
 
-    // ✅ Check existing user
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(409).json({
-        success: false,
-        message: "User already exists",
-      });
-    }
+//     // ✅ Check existing user
+//     const existingUser = await User.findOne({ email });
+//     if (existingUser) {
+//       return res.status(409).json({
+//         success: false,
+//         message: "User already exists",
+//       });
+//     }
 
-    // ✅ Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
+//     // ✅ Hash password
+//     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // ✅ Create user
-    const user = await User.create({
-      email,
-      password: hashedPassword,
-      username,
-    });
+//     // ✅ Create user
+//     const user = await User.create({
+//       email,
+//       password: hashedPassword,
+//       username,
+//     });
 
-    // ✅ Create token
-    const token = createSecretToken(user._id);
+//     // ✅ Create token
+//     const token = createSecretToken(user._id);
 
-    // ✅ Set cookie
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: true,          // IMPORTANT for production (Render)
-      sameSite: "none",      // REQUIRED for cross-origin
-    });
+//     // ✅ Set cookie
+//     res.cookie("token", token, {
+//       httpOnly: true,
+//       secure: true,          // IMPORTANT for production (Render)
+//       sameSite: "none",      // REQUIRED for cross-origin
+//     });
 
-    return res.status(201).json({
-      success: true,
-      message: "Signup successful",
-      user,
-    });
+//     return res.status(201).json({
+//       success: true,
+//       message: "Signup successful",
+//       user,
+//     });
 
-  } catch (error) {
-    console.error("Signup Error:", error);
-    return res.status(500).json({
-      success: false,
-      message: "Server error",
-    });
-  }
-};
+//   } catch (error) {
+//     console.error("Signup Error:", error);
+//     return res.status(500).json({
+//       success: false,
+//       message: "Server error",
+//     });
+//   }
+// };
 
 
-// ================= LOGIN =================
-const Login = async (req, res) => {
-  try {
-    const { email, password } = req.body;
+// // ================= LOGIN =================
+// const Login = async (req, res) => {
+//   try {
+//     const { email, password } = req.body;
 
-    // ✅ Validate input
-    if (!email || !password) {
-      return res.status(400).json({
-        success: false,
-        message: "All fields are required",
-      });
-    }
+//     // ✅ Validate input
+//     if (!email || !password) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "All fields are required",
+//       });
+//     }
 
-    // ✅ Check user
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: "Invalid email",
-      });
-    }
+//     // ✅ Check user
+//     const user = await User.findOne({ email });
+//     if (!user) {
+//       return res.status(404).json({
+//         success: false,
+//         message: "Invalid email",
+//       });
+//     }
 
-    // ✅ Compare password
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(401).json({
-        success: false,
-        message: "Invalid password",
-      });
-    }
+//     // ✅ Compare password
+//     const isMatch = await bcrypt.compare(password, user.password);
+//     if (!isMatch) {
+//       return res.status(401).json({
+//         success: false,
+//         message: "Invalid password",
+//       });
+//     }
 
-    // ✅ Create token
-    const token = createSecretToken(user._id);
+//     // ✅ Create token
+//     const token = createSecretToken(user._id);
 
-    // ✅ Set cookie
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "none",
-    });
+//     // ✅ Set cookie
+//     res.cookie("token", token, {
+//       httpOnly: true,
+//       secure: true,
+//       sameSite: "none",
+//     });
 
-    return res.status(200).json({
-      success: true,
-      message: "Login successful",
-      user,
-    });
+//     return res.status(200).json({
+//       success: true,
+//       message: "Login successful",
+//       user,
+//     });
 
-  } catch (error) {
-    console.error("Login Error:", error);
-    return res.status(500).json({
-      success: false,
-      message: "Server error",
-    });
-  }
-};
+//   } catch (error) {
+//     console.error("Login Error:", error);
+//     return res.status(500).json({
+//       success: false,
+//       message: "Server error",
+//     });
+//   }
+// };
 
-module.exports = { Signup, Login };
+// module.exports = { Signup, Login };
+
+
+
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+
+const app = express();
+
+// ✅ IMPORT ROUTES
+const authRoute = require("./Routes/AuthRoute");
+
+// ✅ MIDDLEWARE
+app.use(express.json());
+app.use(cookieParser());
+
+// ✅ CORS (VERY IMPORTANT FOR FRONTEND)
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:5174",
+      // 👉 add your deployed frontend URL here later
+    ],
+    credentials: true,
+  })
+);
+
+// ✅ CONNECT DATABASE (update your MongoDB URL)
+mongoose
+  .connect(process.env.MONGO_URL || "your_mongodb_connection_string")
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.log(err));
+
+// ✅ ROUTES (THIS FIXES YOUR ERROR)
+app.use("/api", authRoute);
+
+// ✅ TEST ROUTE
+app.get("/", (req, res) => {
+  res.send("Server is running");
+});
+
+// ✅ START SERVER
+const PORT = process.env.PORT || 3002;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
