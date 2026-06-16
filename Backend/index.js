@@ -435,6 +435,68 @@
 //   });
 
 
+// require('dotenv').config();
+
+// const express = require('express');
+// const mongoose = require('mongoose');
+// const cors = require('cors');
+// const cookieParser = require('cookie-parser');
+
+// const authRoute = require("./Routes/AuthRoute.js");
+
+// const { HoldingModel } = require('./models/HoldingsModel.js');
+// const { PositionModel } = require('./models/PositionsModel.js');
+// const { OrderModel } = require('./models/OrdersModel.js');
+
+// const app = express();
+
+// const PORT = process.env.PORT || 3002;
+// const MONGO_URL = process.env.MONGO_URL;
+
+// // ✅ IMPORTANT: CORS (ONLY ONE)
+// app.use(cors({
+//   origin: ["http://localhost:5173", "http://localhost:5174"],
+//   credentials: true
+// }));
+
+// // ✅ IMPORTANT
+// app.use(express.json());
+// app.use(cookieParser());
+
+// // ✅ AUTH ROUTES
+// app.use("/", authRoute);
+
+// // ---------------- API ROUTES ----------------
+
+// app.get("/allHoldings", async (req, res) => {
+//   const data = await HoldingModel.find({});
+//   res.json(data);
+// });
+
+// app.get("/allPosition", async (req, res) => {
+//   const data = await PositionModel.find({});
+//   res.json(data);
+// });
+
+// app.post("/api/orders", async (req, res) => {
+//   const newOrder = new OrderModel(req.body);
+//   await newOrder.save();
+//   res.json({ message: "Order saved" });
+// });
+
+// // ---------------- DB CONNECT ----------------
+
+// mongoose.connect(MONGO_URL)
+//   .then(() => {
+//     console.log("DB Connected");
+//     app.listen(PORT, () => {
+//       console.log("Server running on port " + PORT);
+//     });
+//   })
+//   .catch((err) => {
+//     console.log("DB Error:", err.message);
+//   });
+
 require('dotenv').config();
 
 const express = require('express');
@@ -453,35 +515,52 @@ const app = express();
 const PORT = process.env.PORT || 3002;
 const MONGO_URL = process.env.MONGO_URL;
 
-// ✅ IMPORTANT: CORS (ONLY ONE)
+// ✅ FIXED CORS (add deployed frontend URL)
 app.use(cors({
-  origin: ["http://localhost:5173", "http://localhost:5174"],
+  origin: [
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "https://your-frontend-url.vercel.app" // <-- replace this
+  ],
   credentials: true
 }));
 
-// ✅ IMPORTANT
+// ✅ Middlewares
 app.use(express.json());
 app.use(cookieParser());
 
-// ✅ AUTH ROUTES
-app.use("/", authRoute);
+// ✅ FIXED: ALL AUTH ROUTES NOW UNDER /api
+app.use("/api", authRoute);
 
 // ---------------- API ROUTES ----------------
 
-app.get("/allHoldings", async (req, res) => {
-  const data = await HoldingModel.find({});
-  res.json(data);
+// ✅ also moved under /api for consistency
+app.get("/api/allHoldings", async (req, res) => {
+  try {
+    const data = await HoldingModel.find({});
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-app.get("/allPosition", async (req, res) => {
-  const data = await PositionModel.find({});
-  res.json(data);
+app.get("/api/allPosition", async (req, res) => {
+  try {
+    const data = await PositionModel.find({});
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 app.post("/api/orders", async (req, res) => {
-  const newOrder = new OrderModel(req.body);
-  await newOrder.save();
-  res.json({ message: "Order saved" });
+  try {
+    const newOrder = new OrderModel(req.body);
+    await newOrder.save();
+    res.json({ message: "Order saved" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // ---------------- DB CONNECT ----------------
@@ -490,7 +569,7 @@ mongoose.connect(MONGO_URL)
   .then(() => {
     console.log("DB Connected");
     app.listen(PORT, () => {
-      console.log("Server running on port " + PORT);
+      console.log(`Server running on port ${PORT}`);
     });
   })
   .catch((err) => {

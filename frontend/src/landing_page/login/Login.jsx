@@ -103,20 +103,20 @@ function Login() {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:3002/login", {
+      const res = await fetch("https://stock-trading-platform-1-x4tx.onrender.com/api/login",
+ {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
         body: JSON.stringify({ email, password }),
       });
 
       const data = await res.json();
 
       if (res.ok) {
-        // ✅ redirect after login
-        window.location.href = "http://localhost:5174/dashboard";
+        localStorage.setItem("token", data.token);
+        window.location.href = "http://localhost:5173";
       } else {
         alert(data.message || "Login failed");
       }
@@ -127,19 +127,26 @@ function Login() {
   };
 
   return (
-    <form onSubmit={handleLogin}>
+    <form onSubmit={handleLogin} className="text-center mt-5">
+      <h1>Login</h1>
       <input
         type="email"
         placeholder="Email"
         onChange={(e) => setEmail(e.target.value)}
       />
+      <br/> <br/>
+
       <input
         type="password"
         placeholder="Password"
         onChange={(e) => setPassword(e.target.value)}
+
       />
-      <button type="submit">Login</button>
-    </form>
+            <br/> <br/>
+
+
+      <button type="submit" style={{color:"navy", backgroundColor:"pink"}}>Login</button> 
+    </form> 
   );
 }
 
