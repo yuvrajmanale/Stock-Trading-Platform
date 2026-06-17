@@ -53,11 +53,11 @@ import ProtectedRoute from "./ProtectedRoute";
 const Dashboard = () => {
   const token = localStorage.getItem("token");
 
-  if (!token) {
-    // window.location.href = "http://localhost:5173/login";
-    window.location.href = "https://stock-trading-platform-l4d8.vercel.app/login";
-    return null;
-  }
+  // if (!token) {
+  //   // window.location.href = "http://localhost:5173/login";
+  //   window.location.href = "https://stock-trading-platform-l4d8.vercel.app/login";
+  //   return null;
+  // }
 
   return (
     <div className="dashboard-container">
