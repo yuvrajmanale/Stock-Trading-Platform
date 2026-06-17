@@ -116,7 +116,7 @@ function Login() {
 
       if (res.ok) {
         localStorage.setItem("token", data.token);
-        window.location.href = "http://localhost:5173";
+window.location.href = "https://stock-trading-platform-l4d8.vercel.app";
       } else {
         alert(data.message || "Login failed");
       }
