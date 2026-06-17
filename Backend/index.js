@@ -520,7 +520,8 @@ app.use(cors({
   origin: [
     "http://localhost:5173",
     "http://localhost:5174",
-    "https://your-frontend-url.vercel.app" // <-- replace this
+    "https://stock-trading-platform-l4d8.vercel.app",
+    "https://stock-trading-platform-2szq.vercel.app" // <-- replace this
   ],
   credentials: true
 }));
