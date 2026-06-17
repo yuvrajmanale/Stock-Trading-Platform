@@ -116,7 +116,7 @@ function Login() {
 
       if (res.ok) {
         localStorage.setItem("token", data.token);
-window.location.href = "https://stock-trading-platform-l4d8.vercel.app";
+window.location.href = "https://dashboard212.netlify.app";
       } else {
         alert(data.message || "Login failed");
       }
