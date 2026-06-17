@@ -155,7 +155,7 @@ const Signup = () => {
         localStorage.setItem("token", data.token);
 
         // redirect to dashboard app
-window.location.href = "https://stock-trading-platform-l4d8.vercel.app";
+window.location.href = "https://dashboard212.netlify.app";
       //  window.location.href      = "https://stock-trading-platform-1-x4tx.onrender.com/api/signup";
       } else {
         alert(data.message);

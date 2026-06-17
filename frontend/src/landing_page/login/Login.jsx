@@ -116,7 +116,7 @@ function Login() {
 
       if (res.ok) {
         localStorage.setItem("token", data.token);
-window.location.href = "https://dashboard212.netlify.app";
+window.location.href = "https://dashboard212.netlify.app/";
       } else {
         alert(data.message || "Login failed");
       }
