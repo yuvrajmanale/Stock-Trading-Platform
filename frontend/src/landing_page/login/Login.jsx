@@ -93,6 +93,66 @@
 // export default Login;
 
 
+// import { useState } from "react";
+
+// function Login() {
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+
+//   const handleLogin = async (e) => {
+//     e.preventDefault();
+
+//     try {
+//       const res = await fetch("https://stock-trading-platform-1-x4tx.onrender.com/api/login",
+//  {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({ email, password }),
+//       });
+
+//       const data = await res.json();
+
+//       if (res.ok) {
+//         localStorage.setItem("token", data.token);
+// window.location.href = "https://dashboard212.netlify.app/";
+//       } else {
+//         alert(data.message || "Login failed");
+//       }
+//     } catch (err) {
+//       console.error(err);
+//       alert("Error logging in");
+//     }
+//   };
+
+//   return (
+//     <form onSubmit={handleLogin} className="text-center mt-5">
+//       <h1>Login</h1>
+//       <input
+//         type="email"
+//         placeholder="Email"
+//         onChange={(e) => setEmail(e.target.value)}
+//       />
+//       <br/> <br/>
+
+//       <input
+//         type="password"
+//         placeholder="Password"
+//         onChange={(e) => setPassword(e.target.value)}
+
+//       />
+//             <br/> <br/>
+
+
+//       <button type="submit" style={{color:"navy", backgroundColor:"pink"}}>Login</button> 
+//     </form> 
+//   );
+// }
+
+// export default Login;
+
+
 import { useState } from "react";
 
 function Login() {
@@ -103,20 +163,25 @@ function Login() {
     e.preventDefault();
 
     try {
-      const res = await fetch("https://stock-trading-platform-1-x4tx.onrender.com/api/login",
- {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const res = await fetch(
+        "https://stock-trading-platform-1-x4tx.onrender.com/api/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
       const data = await res.json();
 
       if (res.ok) {
+        // store token
         localStorage.setItem("token", data.token);
-window.location.href = "https://dashboard212.netlify.app/";
+
+        // send token to dashboard via URL
+        window.location.href = `https://dashboard212.netlify.app/?token=${data.token}`;
       } else {
         alert(data.message || "Login failed");
       }
@@ -127,26 +192,25 @@ window.location.href = "https://dashboard212.netlify.app/";
   };
 
   return (
-    <form onSubmit={handleLogin} className="text-center mt-5">
+    <form onSubmit={handleLogin} style={{ textAlign: "center", marginTop: "50px" }}>
       <h1>Login</h1>
+
       <input
         type="email"
         placeholder="Email"
         onChange={(e) => setEmail(e.target.value)}
       />
-      <br/> <br/>
+      <br /><br />
 
       <input
         type="password"
         placeholder="Password"
         onChange={(e) => setPassword(e.target.value)}
-
       />
-            <br/> <br/>
+      <br /><br />
 
-
-      <button type="submit" style={{color:"navy", backgroundColor:"pink"}}>Login</button> 
-    </form> 
+      <button type="submit">Login</button>
+    </form>
   );
 }
 
