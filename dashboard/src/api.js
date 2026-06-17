@@ -24,7 +24,8 @@
 // export default api;
 
 
-import axios from "axios";
+// import axios from "axios";
+import api from "../api";
 
 const api = axios.create({
   baseURL: "https://stock-trading-platform-1-x4tx.onrender.com/api",
