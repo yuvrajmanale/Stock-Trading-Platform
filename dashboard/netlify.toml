@@ -1,0 +1,3 @@
+[build]
+  command = "cd dashboard && npm install && npm run build"
+  publish = "dashboard/build"
