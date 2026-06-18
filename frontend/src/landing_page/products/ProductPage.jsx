@@ -9,8 +9,8 @@
 
 import React from "react";
 
-import Footer from "../../Footer";
-import Navbar from "../../Navbar";
+// import Footer from "../../Footer";
+// import Navbar from "../../Navbar";
 
 import Hero from "./Hero";
 import LeftSection from "./LeftSection";
@@ -20,7 +20,7 @@ import Universe from "./Universe";
 function ProductPage() {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <Hero />
       <LeftSection
         imageURL="media\images\kite.png"
@@ -64,7 +64,7 @@ function ProductPage() {
       />
       <p className="text-center fs-5">Want to know more about our technology stack? Check out the <a href="" style={{textDecoration:"none"}}>Zerodha.tech</a> blog.</p>
       <Universe />
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

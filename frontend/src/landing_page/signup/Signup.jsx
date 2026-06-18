@@ -117,6 +117,8 @@
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+// import Navbar from '../../Navbar'
+// import Footer from '../../Footer'
 import axios from "axios";
 
 
@@ -150,14 +152,9 @@ const Signup = () => {
   { withCredentials: true }
 );
 
-      if (data.success) {
-        // save token
-        localStorage.setItem("token", data.token);
-
-        // redirect to dashboard app
-window.location.href = "https://dashboard212.netlify.app";
-      //  window.location.href      = "https://stock-trading-platform-1-x4tx.onrender.com/api/signup";
-      } else {
+     if (data.success) {
+  window.location.href = `https://dashboard212.netlify.app?token=${data.token}`;
+} else {
         alert(data.message);
       }
     } catch (err) {
@@ -167,13 +164,16 @@ window.location.href = "https://dashboard212.netlify.app";
   };
 
   return (
-    
-    // <div className="form_container text-center mt-5 " >
-    //   <h2 className="text-white">Signup</h2>
+        <>   
+       
+          {/* <Navbar /> */}
 
-    //   <form onSubmit={handleSubmit}>
-    //     <input
-    //       type="email"
+    {/* // <div className="form_container text-center mt-5 " > */}
+    {/* //   <h2 className="text-white">Signup</h2> */}
+
+    {/* //   <form onSubmit={handleSubmit}> */}
+         {/* <input */}
+    {/* //       type="email"
     //       name="email"
     //       placeholder="Email"
     //       value={email}
@@ -204,8 +204,8 @@ window.location.href = "https://dashboard212.netlify.app";
 
     //   <p className="text-white">
     //     Already have an account? <Link to="/login">Login</Link>
-    //   </p>
-    // </div>
+    //   </p> */}
+    {/* // </div> */}
 
      <div
   className="container d-flex justify-content-center align-items-center"
@@ -303,6 +303,8 @@ window.location.href = "https://dashboard212.netlify.app";
     </p>
   </div>
 </div>
+      {/* <Footer /> */}
+</>
   );
 };
 

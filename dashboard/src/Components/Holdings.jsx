@@ -116,18 +116,20 @@
 
 
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../api"; // ✅ correct import
 import { VerticalGraph } from "./VerticalGraph";
 
 const Holdings = () => {
   const [allHoldings, setAllHoldings] = useState([]);
 
   useEffect(() => {
-    // axios.get("https://stock-trading-platform-1-x4tx.onrender.com/api/allHoldings")
     api.get("/allHoldings")
-    .then((res) => {
-      setAllHoldings(res.data);
-    });
+      .then((res) => {
+        setAllHoldings(res.data);
+      })
+      .catch((err) => {
+        console.log("Error fetching holdings:", err);
+      });
   }, []);
 
   const labels = allHoldings.map((s) => s.name);
@@ -143,6 +145,7 @@ const Holdings = () => {
     ],
   };
 
+  
   return (
     <div
       style={{

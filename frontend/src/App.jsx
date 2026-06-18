@@ -79,7 +79,50 @@
 
 
 
+// import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+// import Homepage from "./landing_page/home/Homepage.jsx";
+// import AboutPage from "./landing_page/about/AboutPage.jsx";
+// import ProductPage from "./landing_page/products/ProductPage.jsx";
+// import PricingPage from "./landing_page/pricing/PricingPage.jsx";
+// import SupportPage from "./landing_page/support/SupportPage.jsx";
+
+// import Login from "./landing_page/login/Login.jsx";
+// import Signup from "./landing_page/signup/Signup.jsx";
+
+// function App() {
+//   return (
+//     <BrowserRouter>
+//       <Routes>
+
+//         {/* Landing Pages */}
+//         <Route path="/" element={<Homepage />} />
+//         <Route path="/about" element={<AboutPage />} />
+//         <Route path="/product" element={<ProductPage />} />
+//         <Route path="/pricing" element={<PricingPage />} />
+//         <Route path="/support" element={<SupportPage />} />
+
+//         {/* Auth */}
+//         <Route path="/login" element={<Login />} />
+//         <Route path="/signup" element={<Signup />} />
+
+//         {/* fallback */}
+//         <Route path="*" element={<Navigate to="/" />} />
+
+//       </Routes>
+//     </BrowserRouter>
+//   );
+// }
+
+// export default App;
+
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+// import Navbar from "./landing_page/components/Navbar";
+// import Footer from "./landing_page/components/Footer";
+
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 import Homepage from "./landing_page/home/Homepage.jsx";
 import AboutPage from "./landing_page/about/AboutPage.jsx";
@@ -93,8 +136,10 @@ import Signup from "./landing_page/signup/Signup.jsx";
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
 
+      <Navbar />
+
+      <Routes>
         {/* Landing Pages */}
         <Route path="/" element={<Homepage />} />
         <Route path="/about" element={<AboutPage />} />
@@ -108,8 +153,10 @@ function App() {
 
         {/* fallback */}
         <Route path="*" element={<Navigate to="/" />} />
-
       </Routes>
+
+      <Footer />
+
     </BrowserRouter>
   );
 }

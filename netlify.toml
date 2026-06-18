@@ -1,0 +1,7 @@
+[build]
+  command = "cd frontend && npm ci && npm run build"
+  publish = "frontend/dist"
+
+[context.production.environment]
+# ensure Vite builds with proper Node version if needed
+# NODE_VERSION = "16"
