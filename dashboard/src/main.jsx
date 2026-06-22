@@ -154,13 +154,13 @@ import "./index.css";
 import Home from "./Components/Home";
 // import ProtectedRoute from "./ProtectedRoute";
 import ProtectedRoute from "./Components/ProtectedRoute";
-function LoginRedirect() {
-  useEffect(() => {
-    window.location.href = "https://your-login-site.netlify.app/";
-  }, []);
+// function LoginRedirect() {
+//   useEffect(() => {
+//     window.location.href = "https://your-login-site.netlify.app/";
+//   }, []);
 
-  return <h2>Redirecting...</h2>;
-}
+//   return <h2>Redirecting...</h2>;
+// }
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
