@@ -539,7 +539,7 @@ app.use(cors({
 }));
 
 // 🔴 IMPORTANT FIX FOR PREFLIGHT REQUEST
-app.options("*", cors());
+// app.options("/*", cors());
 
 // ✅ Middlewares
 app.use(express.json());
