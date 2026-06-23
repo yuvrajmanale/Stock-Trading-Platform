@@ -1,50 +1,51 @@
-// import React, { useEffect, useState } from 'react';
-// import api from '../api';
-// import Dashboard from './Dashboard';
-// import TopBar from './TopBar';
-
-// const LOGIN_URL = 'http://localhost:5173/login';
-
-// const Home = () => {
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//     const fetchUser = async () => {
-//       try {
-//         await api.get('/auth/me');
-//         setLoading(false);
-//       } catch (error) {
-//         window.location.href = LOGIN_URL;
-//       }
-//     };
-
-//     fetchUser();
-//   }, []);
-
-//   if (loading) {
-//     return <div className="loading">Checking authentication...</div>;
-//   }
-
-//   return (
-//     <>
-//       <TopBar />
-//       <Dashboard />
-//     </>
-//   );
-// };
-
-// export default Home;
-
-import React from 'react';
+import React, { useEffect } from 'react';
 import Dashboard from './Dashboard';
 import TopBar from './TopBar';
-// import Dashboard from "./Dashboard";
 
-const Home = () => (
-  <>
-    <TopBar />
-    <Dashboard />
-  </>
-);
+const Home = () => {
+
+  useEffect(() => {
+    // ✅ get token from URL
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+
+    if (token) {
+      // store token
+      localStorage.setItem("token", token);
+
+      // remove token from URL
+      window.history.replaceState({}, document.title, "/#/");
+    }
+
+    // ✅ check if token exists
+    const storedToken = localStorage.getItem("token");
+
+    if (!storedToken) {
+      // ❌ not logged in → go back to login app
+      window.location.href = "https://your-login-app-url";
+    }
+  }, []);
+
+  return (
+    <>
+      <TopBar />
+      <Dashboard />
+    </>
+  );
+};
 
 export default Home;
+
+// import React from 'react';
+// import Dashboard from './Dashboard';
+// import TopBar from './TopBar';
+// // import Dashboard from "./Dashboard";
+
+// const Home = () => (
+//   <>
+//     <TopBar />
+//     <Dashboard />
+//   </>
+// );
+
+// export default Home;

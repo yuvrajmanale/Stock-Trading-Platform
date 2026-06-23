@@ -146,36 +146,54 @@
 //   </React.StrictMode>
 // );
 
-import React, { useEffect } from "react";
+// import React, { useEffect } from "react";
+// import { createRoot } from "react-dom/client";
+// import { HashRouter, Routes, Route } from "react-router-dom";
+// import "./index.css";
+
+// import Home from "./Components/Home";
+// // import ProtectedRoute from "./ProtectedRoute";
+// import ProtectedRoute from "./Components/ProtectedRoute";
+// // function LoginRedirect() {
+// //   useEffect(() => {
+// //     window.location.href = "https://your-login-site.netlify.app/";
+// //   }, []);
+
+// //   return <h2>Redirecting...</h2>;
+// // }
+
+// createRoot(document.getElementById("root")).render(
+//   <React.StrictMode>
+//     <HashRouter>
+//       <Routes>
+//         {/* <Route path="/login" element={<LoginRedirect />} /> */}
+
+//         <Route
+//           path="/*"
+//           element={
+//             <ProtectedRoute>
+//               <Home />
+//             </ProtectedRoute>
+//           }
+//         />
+//       </Routes>
+//     </HashRouter>
+//   </React.StrictMode>
+// );
+
+
+import React from "react";
 import { createRoot } from "react-dom/client";
 import { HashRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 
 import Home from "./Components/Home";
-// import ProtectedRoute from "./ProtectedRoute";
-import ProtectedRoute from "./Components/ProtectedRoute";
-// function LoginRedirect() {
-//   useEffect(() => {
-//     window.location.href = "https://your-login-site.netlify.app/";
-//   }, []);
-
-//   return <h2>Redirecting...</h2>;
-// }
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <HashRouter>
       <Routes>
-        {/* <Route path="/login" element={<LoginRedirect />} /> */}
-
-        <Route
-          path="/*"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/*" element={<Home />} />
       </Routes>
     </HashRouter>
   </React.StrictMode>
