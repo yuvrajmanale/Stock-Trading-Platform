@@ -516,16 +516,30 @@ const PORT = process.env.PORT || 3002;
 const MONGO_URL = process.env.MONGO_URL;
 
 // ✅ FIXED CORS (add deployed frontend URL)
+// app.use(cors({
+//   origin: [
+//     "http://localhost:5173",
+//     "http://localhost:5174",
+//     "https://stock-trading-platform-l4d8.vercel.app",
+//     // "https://stock-trading-platform-2szq.vercel.app" // <-- replace this
+//      "https://creative-kelpie-5fe434.netlify.app"
+//   ],
+//   credentials: true
+// }));
+
 app.use(cors({
   origin: [
     "http://localhost:5173",
     "http://localhost:5174",
     "https://stock-trading-platform-l4d8.vercel.app",
-    // "https://stock-trading-platform-2szq.vercel.app" // <-- replace this
-     "https://creative-kelpie-5fe434.netlify.app"
+    "https://creative-kelpie-5fe434.netlify.app"
   ],
-  credentials: true
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 }));
+
+// 🔴 IMPORTANT FIX FOR PREFLIGHT REQUEST
+app.options("*", cors());
 
 // ✅ Middlewares
 app.use(express.json());
