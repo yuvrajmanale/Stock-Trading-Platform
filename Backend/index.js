@@ -522,7 +522,7 @@ app.use(cors({
     "http://localhost:5174",
     "https://stock-trading-platform-l4d8.vercel.app",
     // "https://stock-trading-platform-2szq.vercel.app" // <-- replace this
-    "https://dashboard212.netlify.app"
+     "https://creative-kelpie-5fe434.netlify.app"
   ],
   credentials: true
 }));
