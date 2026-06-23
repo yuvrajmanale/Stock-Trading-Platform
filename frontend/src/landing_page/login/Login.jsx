@@ -1,7 +1,8 @@
 
 
 
-import { useState } from "react";
+import React, { useState } from "react";
+import api from "../api";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -11,54 +12,58 @@ function Login() {
     e.preventDefault();
 
     try {
-      const res = await fetch(
-        "https://stock-trading-platform-1-x4tx.onrender.com/api/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        }
-      );
+      const { data } = await api.post("/login", {
+        email,
+        password,
+      });
 
-      const data = await res.json();
-
-      if (res.ok) {
-        // store token
+      if (data.token) {
+        // save token
         localStorage.setItem("token", data.token);
 
-        // send token to dashboard via URL
-        window.location.href = `https://creative-kelpie-5fe434.netlify.app/#/?token=${data.token}`;
+        // redirect to dashboard
+        window.location.href =
+          `https://creative-kelpie-5fe434.netlify.app/#/?token=${data.token}`;
       } else {
         alert(data.message || "Login failed");
       }
     } catch (err) {
       console.error(err);
-      alert("Error logging in");
+      alert("Server error");
     }
   };
 
   return (
-    <form onSubmit={handleLogin} style={{ textAlign: "center", marginTop: "50px" }}>
+    <div
+      style={{
+        textAlign: "center",
+        marginTop: "100px",
+      }}
+    >
       <h1>Login</h1>
 
-      <input
-        type="email"
-        placeholder="Email"
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <br /><br />
+      <form onSubmit={handleLogin}>
+        <input
+          type="email"
+          placeholder="Enter Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <br /><br />
 
-      <input
-        type="password"
-        placeholder="Password"
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <br /><br />
+        <input
+          type="password"
+          placeholder="Enter Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <br /><br />
 
-      <button type="submit">Login</button>
-    </form>
+        <button type="submit">Login</button>
+      </form>
+    </div>
   );
 }
 
