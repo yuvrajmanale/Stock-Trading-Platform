@@ -351,8 +351,7 @@ const Signup = () => {
         localStorage.setItem("token", data.token);
 
         window.location.href =
-          `https://dashboard212.netlify.app/#/?token=${data.token}`;
-
+  `https://creative-kelpie-5fe434.netlify.app/#/?token=${data.token}`;
         // optional reset
         setInputValue({
           email: "",

@@ -29,7 +29,7 @@ function Login() {
         localStorage.setItem("token", data.token);
 
         // send token to dashboard via URL
-        window.location.href = `https://dashboard212.netlify.app/?token=${data.token}`;
+        window.location.href = `https://creative-kelpie-5fe434.netlify.app/#/?token=${data.token}`;
       } else {
         alert(data.message || "Login failed");
       }
