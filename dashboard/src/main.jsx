@@ -166,7 +166,7 @@ createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <HashRouter>
       <Routes>
-        <Route path="/login" element={<LoginRedirect />} />
+        {/* <Route path="/login" element={<LoginRedirect />} /> */}
 
         <Route
           path="/*"
