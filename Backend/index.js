@@ -517,29 +517,28 @@ const MONGO_URL = process.env.MONGO_URL;
 
 
 
-// app.use(cors({
-//   origin: [
-//     "http://localhost:5173",
-//     "http://localhost:5174",
-//     "https://stock-trading-platform-l4d8.vercel.app",
-//     "https://creative-kelpie-5fe434.netlify.app"
-//   ],
-//   credentials: true,
-//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
-// }));
+
+const allowedOrigins = [
+  "https://stock-trading-platform-l4d8-rj31o9tii-yuvraj-manales-projects.vercel.app",
+  "https://creative-kelpie-5fe434.netlify.app"
+];
 
 app.use(cors({
-  origin: "https://stock-trading-platform-l4d8-rj31o9tii-yuvraj-manales-projects.vercel.app",
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
 }));
 
 
-
+ 
 // ✅ Middlewares
 app.use(express.json());
-app.use(cookieParser());
+// app.use(cookieParser());
 
 // ✅ FIXED: ALL AUTH ROUTES NOW UNDER /api
 app.use("/api", authRoute);

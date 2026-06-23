@@ -24,7 +24,8 @@ const User = require("../Models/UserModel");
 const authMiddleware = async (req, res, next) => {
   try {
     // get token from cookie
-    const token = req.cookies?.token;
+    // const token = req.cookies?.token;
+    const token = req.header("Authorization")?.replace("Bearer ", "");
 
     // check token exists
     if (!token) {
