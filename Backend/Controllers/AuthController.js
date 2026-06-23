@@ -319,18 +319,17 @@ const Signup = async (req, res) => {
     // create token
     const token = createSecretToken(user._id);
 
-    // set cookie
+    // set cookie (FIXED)
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true,
-      sameSite: "none",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     });
 
     return res.status(201).json({
       success: true,
       message: "Signup successful",
       user,
-      token, // optional but useful for frontend
     });
 
   } catch (error) {
@@ -341,7 +340,6 @@ const Signup = async (req, res) => {
     });
   }
 };
-
 
 // ================= LOGIN =================
 const Login = async (req, res) => {
@@ -379,18 +377,17 @@ const Login = async (req, res) => {
     // create token
     const token = createSecretToken(user._id);
 
-    // set cookie
+    // set cookie (FIXED)
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true,
-      sameSite: "none",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     });
 
     return res.status(200).json({
       success: true,
       message: "Login successful",
       user,
-      token,
     });
 
   } catch (error) {
