@@ -519,12 +519,15 @@ const MONGO_URL = process.env.MONGO_URL;
 
 
 const allowedOrigins = [
+  "http://localhost:5173",
   "https://stock-trading-platform-l4d8-rj31o9tii-yuvraj-manales-projects.vercel.app",
   "https://creative-kelpie-5fe434.netlify.app"
 ];
 
+const cors = require('cors');
+
 app.use(cors({
-  origin: function(origin, callback) {
+  origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -533,7 +536,6 @@ app.use(cors({
   },
   credentials: true
 }));
-
 
  
 // ✅ Middlewares
