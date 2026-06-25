@@ -524,7 +524,7 @@ const allowedOrigins = [
   "https://creative-kelpie-5fe434.netlify.app"
 ];
 
-const cors = require('cors');
+
 
 app.use(cors({
   origin: function (origin, callback) {
