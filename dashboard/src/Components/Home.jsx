@@ -30,11 +30,11 @@ const Home = () => {
 
     const token = localStorage.getItem("token");
 
-    if (!token) {
-      window.location.href =
-        "https://stock-trading-platform-l4d8-rj31o9tii-yuvraj-manales-projects.vercel.app/login";
-    }
-  }, []);
+  //   if (!token) {
+  //     window.location.href =
+  //       "https://stock-trading-platform-l4d8-rj31o9tii-yuvraj-manales-projects.vercel.app/login";
+  //   }
+   }, []);
 
   return (
     <>

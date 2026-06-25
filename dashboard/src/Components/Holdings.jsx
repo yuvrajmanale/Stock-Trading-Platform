@@ -115,6 +115,12 @@
 // export default Holdings;
 
 
+
+
+
+
+
+
 import React, { useState, useEffect } from "react";
 import api from "../api"; // ✅ correct import
 import { VerticalGraph } from "./VerticalGraph";
@@ -328,3 +334,6 @@ const Holdings = () => {
 };
 
 export default Holdings;
+
+
+
